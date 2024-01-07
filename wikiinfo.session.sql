@@ -1,9 +1,9 @@
 -- Drop the database if it exists
-DROP DATABASE IF EXISTS wikiinfo;
+DROP DATABASE IF EXISTS wiki;
 -- Create a new database
-CREATE DATABASE IF NOT EXISTS wikiinfo;
+CREATE DATABASE IF NOT EXISTS wiki;
 -- Use database
-USE wikiinfo;
+USE wiki;
 -- Drop tables if they exist
 DROP TABLE IF EXISTS wiki_tags;
 DROP TABLE IF EXISTS wikis;

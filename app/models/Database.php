@@ -9,7 +9,7 @@ class Database
 
     public function __construct(
         $host = "localhost",
-        $dbname = "wikiinfo",
+        $dbname = "wiki",
         $username = "root",
         $password = "",
 

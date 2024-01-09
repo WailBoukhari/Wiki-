@@ -29,6 +29,11 @@ ob_start();
             <!-- Content -->
             <div class="container mt-5">
                 <?php echo "<h2>$title</h2>" ?>
+                <?php
+                if (isset($_GET['error'])) {
+                    echo '<script>alert("' . htmlspecialchars($_GET['error']) . '");</script>';
+                }
+                ?>
                 <!-- Content -->
                 <a href="index.php?action=category_create" class="btn btn-success my-1">Add New Category</a>
                 <ul class="list-group">

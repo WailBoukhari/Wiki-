@@ -91,21 +91,19 @@ class CategoryDAO extends DatabaseDAO
     public function deleteCategory($categoryId)
     {
 
-        $this->conn->beginTransaction();
+        try {
+            // Your existing code to delete the category
+            $query = "DELETE FROM categories WHERE category_id = :categoryId";
+            $params = [':categoryId' => $categoryId];
+            $this->execute($query, $params);
 
-        // Check if the category is associated with any wikis
-        $queryCheckWikis = "SELECT COUNT(*) FROM wikis WHERE category_id = :categoryId";
-        $paramsCheckWikis = [':categoryId' => $categoryId];
-        $count = $this->fetchColumn($queryCheckWikis, $paramsCheckWikis);
+            return ['success' => true, 'message' => 'Category deleted successfully'];
+        } catch (PDOException $e) {
 
-        // Delete record from categories table
-        $queryCategory = "DELETE FROM categories WHERE category_id = :categoryId";
-        $paramsCategory = [':categoryId' => $categoryId];
-        $this->execute($queryCategory, $paramsCategory);
-
-        $this->conn->commit();
-
-        return true;
+            if ($e->errorInfo[1] == 1451) {
+                return ['success' => false, 'message' => 'Cannot delete the category as it is associated with wikis.'];
+            }
+        }
     }
     public function getCategoryCount()
     {

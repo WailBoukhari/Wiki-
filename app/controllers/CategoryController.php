@@ -106,12 +106,16 @@ class CategoryController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $categoryId = $_POST['category_id'];
 
-            if ($this->categoryDAO->deleteCategory($categoryId)) {
+            $result = $this->categoryDAO->deleteCategory($categoryId);
+
+            if ($result['success']) {
+                // Redirect to the index page or show a success message
                 header('Location: index.php?action=category_table');
                 exit();
             } else {
-                // Handle the case where category deletion failed
-                echo "Failed to delete the category.";
+                // Redirect to the index page with an alert message
+                header('Location: index.php?action=category_table&error=' . urlencode($result['message']));
+                exit();
             }
         }
     }

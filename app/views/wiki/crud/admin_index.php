@@ -39,45 +39,45 @@ ob_start();
                     </thead>
                     <tbody>
                         <?php foreach ($wikis as $wiki): ?>
-                        <tr>
-                            <td>
-                                <?= $wiki->getId(); ?>
-                            </td>
-                            <td>
-                                <?= $wiki->getTitle(); ?>
-                            </td>
-                            <td>
-                                <?php
+                            <tr>
+                                <td>
+                                    <?= $wiki->getId(); ?>
+                                </td>
+                                <td>
+                                    <?= $wiki->getTitle(); ?>
+                                </td>
+                                <td>
+                                    <?php
                                     $content = $wiki->getContent();
                                     echo substr($content, 0, 50);
                                     if (strlen($content) > 100) {
                                         echo '...';
                                     }
                                     ?>
-                            </td>
-                            <td>
-                                <?= $wiki->getUserId(); ?>
-                            </td>
-                            <td>
-                                <?= $wiki->getCategoryId(); ?>
-                            </td>
+                                </td>
+                                <td>
+                                    <?= $wiki->getUserId(); ?>
+                                </td>
+                                <td>
+                                    <?= $wiki->getCategoryName(); ?>
+                                </td>
 
-                            <td>
-                                <?= $wiki->getCreatedAt(); ?>
-                            </td>
-                            <td>
-                                <?= $wiki->isArchived(); ?>
-                            </td>
-                            <td>
-                                <?php if ($wiki->isArchived()): ?>
-                                <a href="index.php?action=wiki_enable&id=<?= $wiki->getId(); ?>"
-                                    class="btn btn-success btn-sm">Enable</a>
-                                <?php else: ?>
-                                <a href="index.php?action=wiki_disable&id=<?= $wiki->getId(); ?>"
-                                    class="btn btn-danger btn-sm">Disable</a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
+                                <td>
+                                    <?= $wiki->getCreatedAt(); ?>
+                                </td>
+                                <td>
+                                    <?= $wiki->isArchived(); ?>
+                                </td>
+                                <td>
+                                    <?php if ($wiki->isArchived()): ?>
+                                        <a href="index.php?action=wiki_enable&id=<?= $wiki->getId(); ?>"
+                                            class="btn btn-success btn-sm">Enable</a>
+                                    <?php else: ?>
+                                        <a href="index.php?action=wiki_disable&id=<?= $wiki->getId(); ?>"
+                                            class="btn btn-danger btn-sm">Disable</a>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

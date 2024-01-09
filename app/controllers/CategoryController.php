@@ -35,7 +35,7 @@ class CategoryController
         $relatedWikis = $wikiDAO->getWikisByCategoryId($categoryId);
 
         // Pass the variables to the view
-        include_once 'app/views/category/categorypage.php';
+        include_once 'app/views/category/CategoryPage.php';
     }
     public function index()
     {

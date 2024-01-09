@@ -9,6 +9,7 @@ class Wiki
     private $categoryId;
     private $createdAt;
     private $isArchived;
+    private $tagIds;
 
     public function __construct($wiki_id, $title, $content, $userId, $categoryId, $createdAt, $isArchived)
     {
@@ -59,12 +60,13 @@ class Wiki
     {
         $wikiDAO = new WikiDAO();
         $latestWikis = $wikiDAO->getLatestWikis($limit);
-
-        // Add the following debug statements
-        var_dump($latestWikis);
-        exit();
-
-        // Rest of your code
     }
+    public function getTagIds()
+    {
+
+        return $this->tagIds ?? [];
+    }
+
+
 }
 ?>

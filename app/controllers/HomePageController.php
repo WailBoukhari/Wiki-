@@ -13,6 +13,7 @@ class HomePageController
 
     public function index()
     {
+        $wikis = $this->wikiDAO->getAllWikis();
         // Get latest wikis
         $latestWikis = $this->wikiDAO->getLatestWikis();
         // Get latest categories

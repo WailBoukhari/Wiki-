@@ -27,21 +27,9 @@ if (isset($_GET['action'])) {
             $controller = new HomePageController;
             $controller->index();
             break;
-        case 'allwikis':
-            $controller = new WikiController;
-            $controller->showAllWikis();
-            break;
         case 'wiki':
-            // Display a single wiki page
-            $wikiController = new WikiController();
-            if (isset($_GET['id'])) {
-                $wikiId = $_GET['id'];
-                $wikiController->showWiki($wikiId);
-            } else {
-
-                header('Location: index.php?action=allwikis');
-                exit();
-            }
+            $controller = new WikiController();
+            $controller->showWikiPage($_GET['id']);
             break;
         case 'wiki_table':
             $controller = new WikiController();
@@ -67,6 +55,10 @@ if (isset($_GET['action'])) {
             $controller = new WikiController();
             $controller->disable($_GET['id']);
             break;
+        case 'wiki_enable':
+            $controller = new WikiController();
+            $controller->enable($_GET['id']);
+            break;
         case 'category':
             $controller = new CategoryController();
             $controller->showCategoryPage($_GET['id']);
@@ -85,15 +77,15 @@ if (isset($_GET['action'])) {
             break;
         case 'category_edit':
             $controller = new CategoryController();
-            $controller->edit($_GET['id']);
+            $controller->edit();
             break;
         case 'category_update':
             $controller = new CategoryController();
-            $controller->update($_GET['id']);
+            $controller->update();
             break;
         case 'category_disable':
             $controller = new CategoryController();
-            $controller->disable($_GET['id']);
+            $controller->disable();
             break;
         case 'tag':
             $controller = new TagController();
@@ -113,15 +105,15 @@ if (isset($_GET['action'])) {
             break;
         case 'tag_edit':
             $controller = new TagController();
-            $controller->edit($_GET['id']);
+            $controller->edit();
             break;
         case 'tag_update':
             $controller = new TagController();
-            $controller->update($_GET['id']);
+            $controller->update();
             break;
         case 'tag_disable':
             $controller = new TagController();
-            $controller->disable($_GET['id']);
+            $controller->disable();
             break;
         case 'admin':
             $controller = new AdminController();

@@ -8,7 +8,34 @@ class CategoryDAO extends DatabaseDAO
     public function getAllCategories()
     {
         $query = "SELECT * FROM categories";
-        return $this->fetchAll($query);
+        $results = $this->fetchAll($query);
+
+        $tags = [];
+        foreach ($results as $result) {
+            $tags[] = new Tag(
+                $result['category_id'],
+                $result['name'],
+                $result['created_at']
+            );
+        }
+
+        return $tags;
+    }
+    public function getAllCategoriesForCrud()
+    {
+        $query = "SELECT * FROM categories";
+        $results = $this->fetchAll($query);
+
+        $tags = [];
+        foreach ($results as $result) {
+            $tags[] = new Tag(
+                $result['category_id'],
+                $result['name'],
+                $result['created_at']
+            );
+        }
+
+        return $tags;
     }
     public function getLatestCategories($limit = 5)
     {

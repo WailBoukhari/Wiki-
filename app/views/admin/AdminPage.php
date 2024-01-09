@@ -1,49 +1,27 @@
 <?php
-$title = "Admin Page";
-ob_start();
+// admin.php
 
+$title = "Admin Panel";
+ob_start();
 ?>
 
-<div class="container py-5">
-    <h2>Admin Page</h2>
-
-    <a href="index.php?action=createWiki" class="btn btn-primary mb-3">Create New Wiki</a>
-
-    <?php if (!empty($wikis)): ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($wikis as $wiki): ?>
-            <tr>
-                <td>
-                    <?php echo $wiki->getTitle(); ?>
-                </td>
-                <td>
-                    <?php echo $wiki->getContent(); ?>
-                </td>
-                <td>
-                    <?php echo $wiki->getCategory()->getName(); ?>
-                </td>
-                <td>
-                    <a href="index.php?action=editWiki&id=<?php echo $wiki->getId(); ?>"
-                        class="btn btn-info btn-sm">Edit</a>
-                    <a href="index.php?action=disableWiki&id=<?php echo $wiki->getId(); ?>"
-                        class="btn btn-danger btn-sm">Disable</a>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <?php else: ?>
-    <p>No wikis found.</p>
-    <?php endif; ?>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Sidebar -->
+            <ul class="list-group">
+                <li class="list-group-item" href="index.php?action=admin">Admin Menu</li>
+                <a href="index.php?action=wiki_table" class="list-group-item">Manage Wiki</a>
+                <a href="index.php?action=category_table" class="list-group-item">Manage Categories</a>
+                <a href="index.php?action=tag" class="list-group-item">Manage Tags</a>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <!-- Content -->
+            <h2>Admin Panel</h2>
+            <p>Welcome to the admin panel. Choose an option from the menu.</p>
+        </div>
+    </div>
 </div>
 
 <?php

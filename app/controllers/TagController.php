@@ -10,7 +10,15 @@ class TagController
     {
         $this->tagDAO = new TagDAO();
     }
+    public function showTagPage($tagId)
+    {
+        $tag = $this->tagDAO->getTagById($tagId);
 
+        if ($tag) {
+            $wikis = $this->tagDAO->getWikisByTagId($tagId);
+            include_once 'app/views/tag/TagPage.php';
+        }
+    }
     public function index()
     {
         $tags = $this->tagDAO->getAllTags();

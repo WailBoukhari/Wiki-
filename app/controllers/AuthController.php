@@ -23,9 +23,12 @@ class AuthController
             $result = $this->authDAO->login($email, $password);
 
             if ($result['success']) {
-                // Get user information, including the role
+                // Get user information, including the role and user_id
                 $user = $this->authDAO->getUserByEmail($email);
+
+                $_SESSION['user_id'] = $user->getId();  // Assuming getId() is the method to retrieve the user_id
                 $_SESSION['user'] = $user;
+
                 // Check the user's role and redirect accordingly
                 if ($user && $user->getRole() === 'admin') {
                     // Admin login successful, redirect to admin page
@@ -47,6 +50,7 @@ class AuthController
             }
         }
     }
+
 
     public function showregisterForm()
     {

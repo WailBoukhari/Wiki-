@@ -20,7 +20,6 @@ ob_start();
                     <p>
                         <?php echo $wiki->getContent(); ?>
                     </p>
-                    <!-- Display other wiki information as needed -->
                 </li>
             <?php endforeach; ?>
         </ul>

@@ -6,7 +6,20 @@ class WikiDAO extends DatabaseDAO
 {
     public function getAllWikis()
     {
-        $query = "SELECT * FROM wikis";
+        $query = "SELECT * FROM wikis WHERE is_archived = 0";
+        $results = $this->fetchAll($query);
+
+        $wikis = [];
+        foreach ($results as $result) {
+            $wikis[] = $this->createWikiFromData($result);
+        }
+
+        return $wikis;
+    }
+    public function getAllWikisForCrud()
+    {
+        $query = "SELECT * FROM wikis
+        ";
         $results = $this->fetchAll($query);
 
         $wikis = [];
@@ -32,7 +45,7 @@ class WikiDAO extends DatabaseDAO
 
     public function getWikiById($wikiId)
     {
-        $query = "SELECT * FROM wikis WHERE wiki_id = :wikiId";
+        $query = "SELECT * FROM wikis WHERE wiki_id = :wikiId ";
         $params = [':wikiId' => $wikiId];
         $result = $this->fetch($query, $params);
 
@@ -41,7 +54,7 @@ class WikiDAO extends DatabaseDAO
 
     public function getLatestWikis($limit = 5)
     {
-        $query = "SELECT * FROM wikis ORDER BY created_at DESC LIMIT 5" . (int) $limit;
+        $query = "SELECT * FROM wikis WHERE is_archived = 0 ORDER BY created_at DESC LIMIT 5" . (int) $limit;
         $wikisData = $this->fetchAll($query);
 
         $wikis = [];
@@ -105,5 +118,33 @@ class WikiDAO extends DatabaseDAO
         $params = [':wikiId' => $wikiId];
 
         return $this->execute($query, $params);
+    }
+    public function enableWiki($wikiId)
+    {
+        // Implement soft delete or update status based on your design
+        $query = "UPDATE wikis SET is_archived = 0 WHERE wiki_id = :wikiId";
+        $params = [':wikiId' => $wikiId];
+
+        return $this->execute($query, $params);
+    }
+    public function getTagsByWikiId($wikiId)
+    {
+        $query = "SELECT t.* FROM tags t
+                  JOIN wiki_tags wt ON t.tag_id = wt.tag_id
+                  WHERE wt.wiki_id = :wikiId";
+        $params = [':wikiId' => $wikiId];
+        $results = $this->fetchAll($query, $params);
+
+        $tags = [];
+        foreach ($results as $result) {
+            $tags[] = new Tag(
+                $result['tag_id'],
+                $result['name'],
+                $result['created_at']
+
+            );
+        }
+
+        return $tags;
     }
 }

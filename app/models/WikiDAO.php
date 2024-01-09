@@ -229,4 +229,12 @@ class WikiDAO extends DatabaseDAO
         return true;
 
     }
+    public function getWikiCount()
+    {
+        $query = "SELECT COUNT(*) as count FROM wikis";
+        $result = $this->fetch($query);
+
+        return $result ? (object) ['count' => $result['count']] : (object) ['count' => 0];
+    }
+
 }

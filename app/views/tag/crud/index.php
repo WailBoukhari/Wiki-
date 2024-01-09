@@ -9,8 +9,18 @@ ob_start();
             <!-- Sidebar -->
             <ul class="list-group">
                 <li class="list-group-item" href="index.php?action=admin">Admin Menu</li>
-                <a href="index.php?action=wiki_table" class="list-group-item">Manage Wiki</a>
-                <a href="index.php?action=category_table" class="list-group-item">Manage Categories</a>
+                <?php if (isset($_SESSION['user'])) {
+                    $role = $_SESSION['user']->getRole();
+
+                    switch ($role) {
+                        case 'Admin':
+                            echo '<a href="index.php?action=admin_wiki_table" class="list-group-item">Manage Wiki</a>';
+                            break;
+                        case 'Author':
+                            echo '<a href="index.php?action=author_wiki_table" class="list-group-item">Manage Wiki</a>';
+                            break;
+                    }
+                } ?> <a href="index.php?action=category_table" class="list-group-item">Manage Categories</a>
                 <a href="index.php?action=tag_table" class="list-group-item">Manage Tags</a>
             </ul>
         </div>
@@ -32,23 +42,23 @@ ob_start();
                     </thead>
                     <tbody>
                         <?php foreach ($tags as $tag): ?>
-                        <tr>
-                            <td>
-                                <?php echo $tag->getId(); ?>
-                            </td>
-                            <td>
-                                <?php echo $tag->getName(); ?>
-                            </td>
-                            <td>
-                                <?php echo $tag->getCreatedAt(); ?>
-                            </td>
-                            <td>
-                                <a href="index.php?action=tag_edit&id=<?php echo $tag->getId(); ?>"
-                                    class="btn btn-warning">Edit</a>
-                                <a href="index.php?action=tag_delete&id=<?php echo $tag->getId(); ?>"
-                                    class="btn btn-danger">Disable</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <?php echo $tag->getId(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tag->getName(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $tag->getCreatedAt(); ?>
+                                </td>
+                                <td>
+                                    <a href="index.php?action=tag_edit&id=<?php echo $tag->getId(); ?>"
+                                        class="btn btn-warning">Edit</a>
+                                    <a href="index.php?action=tag_delete&id=<?php echo $tag->getId(); ?>"
+                                        class="btn btn-danger">Disable</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -31,9 +31,13 @@ if (isset($_GET['action'])) {
             $controller = new WikiController();
             $controller->showWikiPage($_GET['id']);
             break;
-        case 'wiki_table':
+        case 'admin_wiki_table':
             $controller = new WikiController();
-            $controller->index();
+            $controller->adminIndex();
+            break;
+        case 'author_wiki_table':
+            $controller = new WikiController();
+            $controller->authorIndex();
             break;
         case 'wiki_create':
             $controller = new WikiController();
@@ -139,7 +143,6 @@ if (isset($_GET['action'])) {
             $controller = new AuthorController();
             $controller->index();
             break;
-
         case 'login':
             $controller = new AuthController;
             $controller->showLoginForm();

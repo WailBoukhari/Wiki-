@@ -107,6 +107,12 @@ class CategoryDAO extends DatabaseDAO
 
         return true;
     }
+    public function getCategoryCount()
+    {
+        $query = "SELECT COUNT(*) as count FROM categories";
+        $result = $this->fetch($query);
 
+        return $result ? (object) ['count' => $result['count']] : (object) ['count' => 0];
+    }
 
 }

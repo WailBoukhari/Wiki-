@@ -119,5 +119,13 @@ class TagDAO extends DatabaseDAO
         return true;
 
     }
+    public function getTagCount()
+    {
+        $query = "SELECT COUNT(*) as count FROM tags";
+        $result = $this->fetch($query);
+
+        return $result ? (object) ['count' => $result['count']] : (object) ['count' => 0];
+    }
+
 }
 ?>

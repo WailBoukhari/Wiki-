@@ -9,7 +9,18 @@ ob_start();
             <!-- Sidebar -->
             <ul class="list-group">
                 <li class="list-group-item"><a href="index.php?action=admin" class="text-dark">Admin Menu</a></li>
-                <a href="index.php?action=wiki_table" class="list-group-item">Manage Wiki</a>
+                <?php if (isset($_SESSION['user'])) {
+                    $role = $_SESSION['user']->getRole();
+
+                    switch ($role) {
+                        case 'Admin':
+                            echo '<a href="index.php?action=admin_wiki_table" class="list-group-item">Manage Wiki</a>';
+                            break;
+                        case 'Author':
+                            echo '<a href="index.php?action=author_wiki_table" class="list-group-item">Manage Wiki</a>';
+                            break;
+                    }
+                } ?>
                 <a href="index.php?action=category_table" class="list-group-item">Manage Categories</a>
                 <a href="index.php?action=tag_table" class="list-group-item">Manage Tags</a>
             </ul>

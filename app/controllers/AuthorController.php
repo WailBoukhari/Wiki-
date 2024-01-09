@@ -2,12 +2,26 @@
 
 class AuthorController
 {
-    public function index()
-    {
+    private $categoryDAO;
+    private $tagDAO;
+    private $wikiDAO;
 
-        include_once 'app/views/admin/AuthorPage.php';
+    public function __construct()
+    {
+        $this->categoryDAO = new CategoryDAO();
+        $this->tagDAO = new TagDAO();
+        $this->wikiDAO = new WikiDAO();
     }
 
-    // Add more author-related methods as needed
+    public function index()
+    {
+        $categoryCount = $this->categoryDAO->getCategoryCount();
+        $tagCount = $this->tagDAO->getTagCount();
+        $wikiCount = $this->wikiDAO->getWikiCount();
+
+
+        include_once 'app/views/author/AuthorPage.php';
+    }
 }
+
 ?>

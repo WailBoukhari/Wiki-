@@ -9,7 +9,7 @@ class Wiki
     private $categoryId;
     private $createdAt;
     private $isArchived;
-    private $tagIds;
+
 
     public function __construct($wiki_id, $title, $content, $userId, $categoryId, $createdAt, $isArchived)
     {
@@ -46,7 +46,6 @@ class Wiki
     {
         return $this->categoryId;
     }
-
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -56,17 +55,13 @@ class Wiki
     {
         return $this->isArchived;
     }
-    public function getLatestWikis($limit = 5)
+    public function getCategoryName()
     {
-        $wikiDAO = new WikiDAO();
-        $latestWikis = $wikiDAO->getLatestWikis($limit);
-    }
-    public function getTagIds()
-    {
+        $categoryDAO = new CategoryDAO();
+        $category = $categoryDAO->getCategoryById($this->categoryId);
 
-        return $this->tagIds ?? [];
+        return $category ? $category->getName() : null;
     }
-
 
 }
 ?>

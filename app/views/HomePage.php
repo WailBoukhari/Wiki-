@@ -30,25 +30,25 @@ ob_start();
                 <h2>Latest Wikis</h2>
                 <div class="card-deck">
                     <?php foreach ($latestWikis as $wiki): ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
-                                        <?php echo $wiki->getTitle(); ?>
-                                    </a>
-                                </h5>
-                                <p class="card-text">
-                                    <?php
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
+                                    <?php echo $wiki->getTitle(); ?>
+                                </a>
+                            </h5>
+                            <p class="card-text">
+                                <?php
                                     $content = $wiki->getContent();
                                     echo substr($content, 0, 50);
                                     if (strlen($content) > 100) {
                                         echo '...';
                                     }
                                     ?>
-                                </p>
+                            </p>
 
-                            </div>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -57,16 +57,16 @@ ob_start();
                 <h2>Latest Categories</h2>
                 <div class="card-deck">
                     <?php foreach ($latestCategories as $category): ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="index.php?action=category&id=<?php echo $category->getId(); ?>">
-                                        <?php echo $category->getName(); ?>
-                                    </a>
-                                </h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="index.php?action=category&id=<?php echo $category->getId(); ?>">
+                                    <?php echo $category->getName(); ?>
+                                </a>
+                            </h5>
 
-                            </div>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -74,17 +74,17 @@ ob_start();
                 <h2>Latest Tags</h2>
                 <div class="card-deck">
                     <?php foreach ($latestTags as $tag): ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="index.php?action=tag&id=<?php echo $tag->getId(); ?>">
-                                        <span>
-                                            <?php echo $tag->getName(); ?>
-                                        </span>
-                                    </a>
-                                </h5>
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="index.php?action=tag&id=<?php echo $tag->getId(); ?>">
+                                    <span>
+                                        <?php echo $tag->getName(); ?>
+                                    </span>
+                                </a>
+                            </h5>
                         </div>
+                    </div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -97,30 +97,30 @@ ob_start();
                     <h2 class="mb-4">All Wikis</h2>
 
                     <?php if (!empty($wikis)): ?>
-                        <ul class="list-group">
-                            <?php foreach ($wikis as $wiki): ?>
-                                <li class="list-group-item mb-3">
-                                    <h3 class="mb-2">
-                                        <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
-                                            <?php echo $wiki->getTitle(); ?>
-                                        </a>
-                                    </h3>
-                                    <p class="mb-0">
-                                        <?php
+                    <ul class="list-group">
+                        <?php foreach ($wikis as $wiki): ?>
+                        <li class="list-group-item mb-3">
+                            <h3 class="mb-2">
+                                <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
+                                    <?php echo $wiki->getTitle(); ?>
+                                </a>
+                            </h3>
+                            <p class="mb-0">
+                                <?php
                                         $content = $wiki->getContent();
                                         echo substr($content, 0, 50);
                                         if (strlen($content) > 100) {
                                             echo '...';
                                         }
                                         ?>
-                                    </p>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                            </p>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
                     <?php else: ?>
-                        <div class="alert alert-info" role="alert">
-                            No wikis found.
-                        </div>
+                    <div class="alert alert-info" role="alert">
+                        No wikis found.
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>

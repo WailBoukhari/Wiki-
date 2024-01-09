@@ -38,8 +38,15 @@ ob_start();
                                     </a>
                                 </h5>
                                 <p class="card-text">
-                                    <?php echo $wiki->getContent(); ?>
+                                    <?php
+                                    $content = $wiki->getContent();
+                                    echo substr($content, 0, 50);
+                                    if (strlen($content) > 100) {
+                                        echo '...';
+                                    }
+                                    ?>
                                 </p>
+
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -99,9 +106,14 @@ ob_start();
                                         </a>
                                     </h3>
                                     <p class="mb-0">
-                                        <?php echo $wiki->getContent(); ?>
+                                        <?php
+                                        $content = $wiki->getContent();
+                                        echo substr($content, 0, 50);
+                                        if (strlen($content) > 100) {
+                                            echo '...';
+                                        }
+                                        ?>
                                     </p>
-                                    <!-- Access other properties as needed -->
                                 </li>
                             <?php endforeach; ?>
                         </ul>

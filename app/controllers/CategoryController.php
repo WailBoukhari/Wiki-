@@ -88,16 +88,32 @@ class CategoryController
             // You might want to redirect to an error page or show a message
         }
     }
-
-    public function disable()
+    public function delete()
     {
         $categoryId = isset($_GET['id']) ? $_GET['id'] : null;
+        $category = $categoryId ? $this->categoryDAO->getCategoryById($categoryId) : null;
 
-        if ($categoryId && $this->categoryDAO->disableCategory($categoryId)) {
-            header('Location: index.php?action=category_table');
-            exit();
+        if ($category) {
+            include_once 'app/views/category/crud/delete.php';
+        } else {
+            // Handle the case where the category is not found
+            echo "Category not found.";
         }
-        // Handle category disable failure or ID not provided
-        // You might want to redirect to an error page or show a message
     }
+
+    public function destroy()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $categoryId = $_POST['category_id'];
+
+            if ($this->categoryDAO->deleteCategory($categoryId)) {
+                header('Location: index.php?action=category_table');
+                exit();
+            } else {
+                // Handle the case where category deletion failed
+                echo "Failed to delete the category.";
+            }
+        }
+    }
+
 }

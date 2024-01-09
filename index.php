@@ -59,6 +59,14 @@ if (isset($_GET['action'])) {
             $controller = new WikiController();
             $controller->enable($_GET['id']);
             break;
+        case 'wiki_delete':
+            $controller = new WikiController();
+            $controller->delete($_GET['id']);
+            break;
+        case 'wiki_destroy':
+            $controller = new WikiController();
+            $controller->destroy();
+            break;
         case 'category':
             $controller = new CategoryController();
             $controller->showCategoryPage($_GET['id']);
@@ -83,9 +91,13 @@ if (isset($_GET['action'])) {
             $controller = new CategoryController();
             $controller->update();
             break;
-        case 'category_disable':
+        case 'category_delete':
             $controller = new CategoryController();
-            $controller->disable();
+            $controller->delete($_GET['id']);
+            break;
+        case 'category_destroy':
+            $controller = new CategoryController();
+            $controller->destroy();
             break;
         case 'tag':
             $controller = new TagController();
@@ -111,9 +123,13 @@ if (isset($_GET['action'])) {
             $controller = new TagController();
             $controller->update();
             break;
-        case 'tag_disable':
+        case 'tag_delete':
             $controller = new TagController();
-            $controller->disable();
+            $controller->delete($_GET['id']);
+            break;
+        case 'tag_destroy':
+            $controller = new TagController();
+            $controller->destroy();
             break;
         case 'admin':
             $controller = new AdminController();

@@ -10,6 +10,7 @@ class TagController
     {
         $this->tagDAO = new TagDAO();
     }
+
     public function showTagPage($tagId)
     {
         $tag = $this->tagDAO->getTagById($tagId);
@@ -19,6 +20,7 @@ class TagController
             include_once 'app/views/tag/TagPage.php';
         }
     }
+
     public function index()
     {
         $tags = $this->tagDAO->getAllTags();
@@ -38,8 +40,10 @@ class TagController
             if ($this->tagDAO->createTag($name)) {
                 header('Location: index.php?action=tag_table');
                 exit();
+            } else {
+                // Handle the case where tag creation failed
+                echo "Failed to create the tag.";
             }
-
         }
     }
 
@@ -50,6 +54,9 @@ class TagController
 
         if ($tag) {
             include_once 'app/views/tag/crud/edit.php';
+        } else {
+            // Handle the case where tag is not found
+            echo "Tag not found.";
         }
     }
 
@@ -62,17 +69,45 @@ class TagController
             if ($this->tagDAO->updateTag($tagId, $name)) {
                 header('Location: index.php?action=tag_table');
                 exit();
+            } else {
+                // Handle the case where tag update failed
+                echo "Failed to update the tag.";
             }
         }
     }
 
-    public function disable()
-    {
-        $tagId = isset($_GET['id']) ? $_GET['id'] : null;
 
-        if ($tagId && $this->tagDAO->disableTag($tagId)) {
-            header('Location: index.php?action=tag_table');
-            exit();
+    public function delete($tagId)
+    {
+        $tag = $this->tagDAO->getTagById($tagId);
+
+        if ($tag) {
+            include_once 'app/views/tag/crud/delete.php';
+        } else {
+            // Handle the case where the tag is not found
+            echo "Tag not found.";
         }
     }
+
+    public function destroy()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $tagId = $_POST['tag_id'];
+
+            $success = $this->tagDAO->deleteTag($tagId);
+
+            if ($success) {
+                // Redirect to the index page or show a success message
+                header('Location: index.php?action=tag_table');
+                exit();
+            } else {
+                // Handle the case where disabling failed
+                echo "Failed to disable the tag.";
+            }
+        }
+    }
+
+    // ...
+
 }
+?>

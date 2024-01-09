@@ -4,8 +4,8 @@ ob_start();
 ?>
 
 <div class="container mt-5">
-    <h1>Edit Wiki</h1>
-    <form action="index.php?action=update&id=<?= $wiki->getId(); ?>" method="POST">
+    <?php echo "<h1>$title</h1>" ?>
+    <form action="index.php?action=wiki_update&id=<?= $wiki->getId(); ?>" method="POST">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
             <input type="text" class="form-control" name="title" value="<?= $wiki->getTitle(); ?>" required>

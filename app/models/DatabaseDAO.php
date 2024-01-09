@@ -25,7 +25,17 @@ class DatabaseDAO
         $stmt = $this->executeQuery($query, $params);
         return $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
     }
-
+    public function fetchColumn($query, $params = [])
+    {
+        try {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            echo "Query failed: " . $e->getMessage();
+            return false;
+        }
+    }
     public function fetch($query, $params = [])
     {
         $stmt = $this->executeQuery($query, $params);
@@ -37,4 +47,19 @@ class DatabaseDAO
         $stmt = $this->executeQuery($query, $params);
         return $stmt ? true : false;
     }
+    public function beginTransaction()
+    {
+        return $this->conn->beginTransaction();
+    }
+
+    public function getLastInsertId()
+    {
+        return $this->conn->lastInsertId();
+    }
+
+    public function commit()
+    {
+        return $this->conn->commit();
+    }
+
 }

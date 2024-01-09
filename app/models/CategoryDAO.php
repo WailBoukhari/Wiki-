@@ -80,16 +80,33 @@ class CategoryDAO extends DatabaseDAO
     public function updateCategory($categoryId, $name)
     {
         $query = "UPDATE categories SET name = :name WHERE category_id = :categoryId";
-        $params = [':categoryId' => $categoryId, ':name' => $name];
+        $params = [
+            ':name' => $name,
+            ':categoryId' => $categoryId
+        ];
 
         return $this->execute($query, $params);
     }
 
-    public function disableCategory($categoryId)
+    public function deleteCategory($categoryId)
     {
-        $query = "UPDATE categories SET is_disabled = 1 WHERE category_id = :categoryId";
-        $params = [':categoryId' => $categoryId];
 
-        return $this->execute($query, $params);
+        $this->conn->beginTransaction();
+
+        // Check if the category is associated with any wikis
+        $queryCheckWikis = "SELECT COUNT(*) FROM wikis WHERE category_id = :categoryId";
+        $paramsCheckWikis = [':categoryId' => $categoryId];
+        $count = $this->fetchColumn($queryCheckWikis, $paramsCheckWikis);
+
+        // Delete record from categories table
+        $queryCategory = "DELETE FROM categories WHERE category_id = :categoryId";
+        $paramsCategory = [':categoryId' => $categoryId];
+        $this->execute($queryCategory, $paramsCategory);
+
+        $this->conn->commit();
+
+        return true;
     }
+
+
 }

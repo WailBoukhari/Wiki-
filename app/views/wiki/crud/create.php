@@ -1,11 +1,11 @@
 <?php
-$title = "";
+$title = "Create a New Wiki";
 ob_start();
 
 ?>
 
 <div class="container mt-5">
-    <h1>Create a New Wiki</h1>
+    <?php echo "<h1>$title</h1>" ?>
     <form action="index.php?action=wiki_store" method="POST">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>

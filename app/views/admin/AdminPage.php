@@ -13,7 +13,7 @@ ob_start();
                 <li class="list-group-item" href="index.php?action=admin">Admin Menu</li>
                 <a href="index.php?action=wiki_table" class="list-group-item">Manage Wiki</a>
                 <a href="index.php?action=category_table" class="list-group-item">Manage Categories</a>
-                <a href="index.php?action=tag" class="list-group-item">Manage Tags</a>
+                <a href="index.php?action=tag_table" class="list-group-item">Manage Tags</a>
             </ul>
         </div>
         <div class="col-md-9">

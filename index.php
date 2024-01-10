@@ -27,6 +27,10 @@ if (isset($_GET['action'])) {
             $controller = new HomePageController;
             $controller->index();
             break;
+        case 'liveSearch':
+            $controller = new HomePageController;
+            $controller->liveSearch();
+            break;
         case 'wiki':
             $controller = new WikiController();
             $controller->showWikiPage($_GET['id']);

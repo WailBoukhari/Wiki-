@@ -15,11 +15,11 @@ class WikiController
     public function showWikiPage($wikiId)
     {
         $wikiDAO = new WikiDAO();
-        $tags = $this->wikiDAO->getTagsByWikiId($wikiId);
-        $wiki = $wikiDAO->getWikiById($wikiId);
+        $wiki = $wikiDAO->getWikiByIdWithTags($wikiId);
 
         include_once 'app/views/wiki/SingleWikiPage.php';
     }
+
     public function adminIndex()
     {
         $wikiDAO = new WikiDAO();
@@ -155,7 +155,7 @@ class WikiController
         $wiki = $this->wikiDAO->getWikiById($wikiId);
 
         if ($wiki) {
-            include_once 'app/views/wiki/crud/author_wiki_table.php';
+            include_once 'app/views/wiki/crud/delete.php';
         } else {
             // Handle the case where the wiki is not found
             echo "Wiki not found.";
@@ -171,7 +171,7 @@ class WikiController
 
             if ($success) {
                 // Redirect to the index page or show a success message
-                header('Location: index.php?action=wiki_table');
+                header('Location: index.php?action=author_wiki_table');
                 exit();
             } else {
                 // Handle the case where disabling failed

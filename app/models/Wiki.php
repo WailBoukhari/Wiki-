@@ -10,7 +10,7 @@ class Wiki
     private $createdAt;
     private $isArchived;
 
-
+    private $tags = [];
     public function __construct($wiki_id, $title, $content, $userId, $categoryId, $createdAt, $isArchived)
     {
         $this->wiki_id = $wiki_id;
@@ -62,6 +62,14 @@ class Wiki
 
         return $category ? $category->getName() : null;
     }
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
 
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }
 ?>

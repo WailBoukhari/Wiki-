@@ -46,7 +46,6 @@ ob_start();
                                     }
                                     ?>
                             </p>
-
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -64,7 +63,6 @@ ob_start();
                                     <?php echo $category->getName(); ?>
                                 </a>
                             </h5>
-
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -95,33 +93,34 @@ ob_start();
             <div class="col-lg-9">
                 <div class="container py-5">
                     <h2 class="mb-4">All Wikis</h2>
-
-                    <?php if (!empty($wikis)): ?>
-                    <ul class="list-group">
-                        <?php foreach ($wikis as $wiki): ?>
-                        <li class="list-group-item mb-3">
-                            <h3 class="mb-2">
-                                <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
-                                    <?php echo $wiki->getTitle(); ?>
-                                </a>
-                            </h3>
-                            <p class="mb-0">
-                                <?php
-                                        $content = $wiki->getContent();
-                                        echo substr($content, 0, 50);
-                                        if (strlen($content) > 100) {
-                                            echo '...';
-                                        }
-                                        ?>
-                            </p>
-                        </li>
-                        <?php endforeach; ?>
+                    <ul id="live-search-results" class="list-group">
+                        <?php if (!empty($wikis)): ?>
+                        <ul class="list-group">
+                            <?php foreach ($wikis as $wiki): ?>
+                            <li class="list-group-item mb-3">
+                                <h3 class="mb-2">
+                                    <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
+                                        <?php echo $wiki->getTitle(); ?>
+                                    </a>
+                                </h3>
+                                <p class="mb-0">
+                                    <?php
+                                            $content = $wiki->getContent();
+                                            echo substr($content, 0, 50);
+                                            if (strlen($content) > 100) {
+                                                echo '...';
+                                            }
+                                            ?>
+                                </p>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php else: ?>
+                        <div class="alert alert-info" role="alert">
+                            No wikis found.
+                        </div>
+                        <?php endif; ?>
                     </ul>
-                    <?php else: ?>
-                    <div class="alert alert-info" role="alert">
-                        No wikis found.
-                    </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -133,5 +132,20 @@ ob_start();
     <p class="text-center text-black">&copy; 2024 WikiInfo. All rights reserved.</p>
 </footer>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#datatable-search-input').on('input', function() {
+        var query = $(this).val();
+        if (query.length > 0) {
+            $.get('index.php?action=liveSearch&query=' + query, function(data) {
+                $('#live-search-results').html(data);
+            });
+        } else {
+            window.location.reload();
+        }
+    });
+});
+</script>
 <?php $content = ob_get_clean(); ?>
 <?php include_once 'app/views/include/layout.php'; ?>

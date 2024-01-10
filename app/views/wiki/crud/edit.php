@@ -21,9 +21,10 @@ ob_start();
             <label for="category" class="form-label">Category:</label>
             <select class="form-select" name="category_id" required>
                 <?php foreach ($categories as $category): ?>
-                    <option value="<?= $category->getId(); ?>" <?= ($category->getId() == $wiki->getCategoryId()) ? 'selected' : ''; ?>>
-                        <?= $category->getName(); ?>
-                    </option>
+                <option value="<?= $category->getId(); ?>"
+                    <?= ($category->getId() == $wiki->getCategoryId()) ? 'selected' : ''; ?>>
+                    <?= $category->getName(); ?>
+                </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -31,11 +32,11 @@ ob_start();
         <!-- Tags selection -->
         <div class="mb-3">
             <label for="tags" class="form-label">Tags:</label>
-            <select class="form-select" name="tags[]" multiple required>
+            <select class="form-control" name="tags[]" multiple>
                 <?php foreach ($tags as $tag): ?>
-                    <option value="<?= $tag->getId(); ?>" <?= (in_array($tag->getId(), $wiki->getTagIds())) ? 'selected' : ''; ?>>
-                        <?= $tag->getName(); ?>
-                    </option>
+                <option value="<?php echo $tag->getId(); ?>">
+                    <?php echo $tag->getName(); ?>
+                </option>
                 <?php endforeach; ?>
             </select>
         </div>

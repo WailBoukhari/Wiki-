@@ -28,6 +28,7 @@ ob_start();
                             <th>Title</th>
                             <th>Content</th>
                             <th>Category</th>
+                            <th>Tags</th>
                             <th>Created At</th>
                             <th>Is Archived</th>
                             <th>Actions</th>
@@ -51,6 +52,14 @@ ob_start();
                                 </td>
                                 <td>
                                     <?= $wiki->getCategoryName(); ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $tags = $wiki->getTags();
+                                    foreach ($tags as $tag) {
+                                        echo $tag->getName() . ', ';
+                                    }
+                                    ?>
                                 </td>
                                 <td>
                                     <?= $wiki->getCreatedAt(); ?>

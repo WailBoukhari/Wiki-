@@ -56,6 +56,7 @@ class TagDAO extends DatabaseDAO
                 $wikiData['content'],
                 $wikiData['user_id'],
                 $wikiData['category_id'],
+                $wikiData['image'],
                 $wikiData['created_at'],
                 $wikiData['is_archived']
             );

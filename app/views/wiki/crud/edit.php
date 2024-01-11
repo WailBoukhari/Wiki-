@@ -5,21 +5,23 @@ ob_start();
 
 <div class="container mt-5">
     <?php echo "<h1>$title</h1>" ?>
-    <form action="index.php?action=wiki_update&id=<?= $wiki->getId(); ?>" method="POST">
+    <form action="index.php?action=wiki_update&id=<?= $wiki->getId(); ?>" method="POST" enctype="multipart/form-data">
+        <!-- Existing Image -->
         <div class="mb-3">
-            <label for="title" class="form-label">Title:</label>
-            <input type="text" class="form-control" name="title" value="<?= $wiki->getTitle(); ?>" required>
+            <label for="existingImage" class="form-label">Existing Image:</label>
+            <img src="<?= $wiki->getImg(); ?>" alt="Existing Image">
         </div>
+
+
 
         <div class="mb-3">
             <label for="content" class="form-label">Content:</label>
             <textarea class="form-control" name="content" required><?= $wiki->getContent(); ?></textarea>
         </div>
 
-        <!-- Category selection -->
         <div class="mb-3">
-            <label for="category" class="form-label">Category:</label>
-            <select class="form-select" name="category_id" required>
+            <label for="category_id" class="form-label">Category:</label>
+            <select class="form-control" name="category_id" required>
                 <?php foreach ($categories as $category): ?>
                 <option value="<?= $category->getId(); ?>"
                     <?= ($category->getId() == $wiki->getCategoryId()) ? 'selected' : ''; ?>>
@@ -29,7 +31,6 @@ ob_start();
             </select>
         </div>
 
-        <!-- Tags selection -->
         <div class="mb-3">
             <label for="tags" class="form-label">Tags:</label>
             <select class="form-control" name="tags[]" multiple>
@@ -40,7 +41,15 @@ ob_start();
                 <?php endforeach; ?>
             </select>
         </div>
-
+        <!-- Upload New Image -->
+        <div class="mb-3">
+            <label for="newImage" class="form-label">New Image:</label>
+            <input type="file" class="form-control" name="newImage">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" name="title" value="<?= $wiki->getTitle(); ?>" required>
+        </div>
         <button type="submit" class="btn btn-primary">Update Wiki</button>
     </form>
 </div>

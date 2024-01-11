@@ -17,10 +17,10 @@ class WikiDAO extends DatabaseDAO
                 $result['content'],
                 $result['user_id'],
                 $result['category_id'],
+                $result['image'],
                 $result['created_at'],
                 $result['is_archived']
             );
-
         }
 
         return $wikis;
@@ -37,6 +37,7 @@ class WikiDAO extends DatabaseDAO
             $result['content'],
             $result['user_id'],
             $result['category_id'],
+            $result['image'],
             $result['created_at'],
             $result['is_archived']
         ) : null;
@@ -54,6 +55,7 @@ class WikiDAO extends DatabaseDAO
                 $result['content'],
                 $result['user_id'],
                 $result['category_id'],
+                $result['image'],
                 $result['created_at'],
                 $result['is_archived']
             );
@@ -67,6 +69,15 @@ class WikiDAO extends DatabaseDAO
 
         return null;
     }
+    public function getWikiImage($wikiId)
+    {
+        $query = "SELECT image FROM wikis WHERE wiki_id = :wikiId";
+        $params = [':wikiId' => $wikiId];
+
+        $result = $this->fetch($query, $params);
+
+        return $result ? $result['image'] : null;
+    }
     public function getAllWikisForCrud()
     {
         $query = "SELECT w.*, u.username FROM wikis w
@@ -79,8 +90,36 @@ class WikiDAO extends DatabaseDAO
                 $result['wiki_id'],
                 $result['title'],
                 $result['content'],
-                $result['username'], // Use the username instead of user_id
+                $result['username'],
                 $result['category_id'],
+                $result['image'],
+                $result['created_at'],
+                $result['is_archived']
+            );
+
+            $tags = $this->getTagsByWikiId($result['wiki_id']);
+            $wiki->setTags($tags);
+
+            $wikis[] = $wiki;
+        }
+
+        return $wikis;
+    }
+    public function getAllWikisForCrudByUserId($userID)
+    {   var_dump($userID);
+        $query = "SELECT w.*, u.username FROM wikis w
+        JOIN users u ON w.user_id = u.user_id WHERE w.user_id = :user_id";
+        $params = [':user_id' => $userID];
+        $results = $this->fetchAll($query,$params);
+        $wikis = [];
+        foreach ($results as $result) {
+            $wiki = new Wiki(
+                $result['wiki_id'],
+                $result['title'],
+                $result['content'],
+                $result['username'],
+                $result['category_id'],
+                $result['image'],
                 $result['created_at'],
                 $result['is_archived']
             );
@@ -126,6 +165,7 @@ class WikiDAO extends DatabaseDAO
                 $result['content'],
                 $result['user_id'],
                 $result['category_id'],
+                $result['image'],
                 $result['created_at'],
                 $result['is_archived']
             );
@@ -136,7 +176,7 @@ class WikiDAO extends DatabaseDAO
 
     public function getLatestWikis($limit = 5)
     {
-        $query = "SELECT * FROM wikis WHERE is_archived = 0 ORDER BY created_at DESC LIMIT 5" . (int) $limit;
+        $query = "SELECT * FROM wikis WHERE is_archived = 0 ORDER BY created_at DESC LIMIT " . (int) $limit;
         $wikisData = $this->fetchAll($query);
 
         $wikis = [];
@@ -147,6 +187,7 @@ class WikiDAO extends DatabaseDAO
                 $wikiData['content'],
                 $wikiData['user_id'],
                 $wikiData['category_id'],
+                $wikiData['image'],
                 $wikiData['created_at'],
                 $wikiData['is_archived']
             );
@@ -154,15 +195,16 @@ class WikiDAO extends DatabaseDAO
 
         return $wikis;
     }
-    public function createWiki($title, $content, $userId, $categoryId, $tagIds)
+    public function createWiki($title, $content, $userId, $categoryId, $tagIds, $imagePath)
     {
         // Insert the wiki without tags first
-        $query = "INSERT INTO wikis (title, content, user_id, category_id) VALUES (:title, :content, :userId, :categoryId)";
+        $query = "INSERT INTO wikis (title, content, user_id, category_id, image) VALUES (:title, :content, :userId, :categoryId, :image)";
         $params = [
             ':title' => $title,
             ':content' => $content,
             ':userId' => $userId,
             ':categoryId' => $categoryId,
+            ':image' => $imagePath,
         ];
 
         $success = $this->execute($query, $params);
@@ -178,27 +220,28 @@ class WikiDAO extends DatabaseDAO
         return $success;
     }
 
-    public function updateWiki($wikiId, $title, $content, $categoryId, $tagIds)
+    public function updateWiki($wikiId, $title, $content, $categoryId, $tagIds, $imagePath)
     {
-        // Update the wiki information
-        $query = "UPDATE wikis SET title = :title, content = :content, category_id = :categoryId, created_at = CURRENT_TIMESTAMP WHERE wiki_id = :wikiId";
+        // Update the wiki information, including image
+        $query = "UPDATE wikis SET title = :title, content = :content, category_id = :categoryId, image = :imagePath, created_at = CURRENT_TIMESTAMP WHERE wiki_id = :wikiId";
         $params = [
             ':wikiId' => $wikiId,
             ':title' => $title,
             ':content' => $content,
             ':categoryId' => $categoryId,
+            ':imagePath' => $imagePath, // Add image path to the update query
         ];
-
+    
         $success = $this->execute($query, $params);
-
+    
         if ($success) {
             // Delete existing tags for the wiki
             $this->deleteWikiTags($wikiId);
-
+    
             // Insert new tags for the wiki into wiki_tags table
             $this->insertWikiTags($wikiId, $tagIds);
         }
-
+    
         return $success;
     }
 
@@ -299,6 +342,7 @@ class WikiDAO extends DatabaseDAO
                 $result['content'],
                 $result['user_id'],
                 $result['category_id'],
+                $result['image'],
                 $result['created_at'],
                 $result['is_archived']
             );
@@ -306,7 +350,6 @@ class WikiDAO extends DatabaseDAO
 
         return $wikis;
     }
-
 
     // public function searchWikisByQuery($query)
     // {

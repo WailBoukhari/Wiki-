@@ -1,2 +1,58 @@
+.jumbotron {
+  color: white;
+}
+/* Add your existing styles here */
 
-.jumbotron{color: white;}   
+.col-lg-9 {
+  margin: 0 auto; /* Adjust as needed */
+}
+
+.container {
+  padding: 2rem; /* Adjust as needed */
+}
+a {
+
+  text-decoration: none;
+  color: rgb(49, 49, 49);
+  
+}
+a:hover {
+  text-decoration: none;
+
+  color: rgb(54, 54, 54);
+}
+h2 {
+  font-size: 1.5rem; /* Adjust as needed */
+  margin-bottom: 1rem;
+}
+
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-group-item {
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc; /* Adjust border styles as needed */
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.list-group-item h3 {
+  font-size: 1.2rem; /* Adjust as needed */
+  margin-bottom: 0.5rem;
+}
+
+.list-group-item p {
+  margin: 0;
+}
+
+.alert {
+  margin-top: 1rem; /* Adjust as needed */
+  padding: 1rem;
+  background-color: #d1ecf1; /* Adjust background color as needed */
+  border: 1px solid #bee5eb; /* Adjust border color as needed */
+  color: #0c5460; /* Adjust text color as needed */
+  border-radius: 5px;
+}

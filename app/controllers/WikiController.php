@@ -28,9 +28,10 @@ class WikiController
         include 'app/views/wiki/crud/admin_index.php';
     }
     public function authorIndex()
+    
     {
         $wikiDAO = new WikiDAO();
-        $wikis = $wikiDAO->getAllWikisForCrud();
+        $wikis = $wikiDAO->getAllWikisForCrudByUserId($userID);
 
         include 'app/views/wiki/crud/author_index.php';
     }
@@ -43,78 +44,61 @@ class WikiController
         // Display the form to create a new wiki
         include 'app/views/wiki/crud/create.php';
     }
-
     public function store()
     {
-        // Handle the submission of the create form
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['title'];
             $content = $_POST['content'];
             $categoryId = $_POST['category_id'];
             $tagIds = isset($_POST['tags']) ? $_POST['tags'] : [];
-
+    
             // Validate and sanitize input if needed
-
+    
             $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-            if ($userId) {
-                // Create the wiki with the associated user, category, and tags
-                $success = $this->wikiDAO->createWiki($title, $content, $userId, $categoryId, $tagIds);
-
-                if ($success) {
-                    // Redirect to the index page or show a success message
-                    header('Location: index.php?action=author_wiki_table');
-                    exit();
-                } else {
-                    // Handle the case where the creation failed
-                    echo "Failed to create the wiki.";
-                }
+    
+            $imagePath = $this->handleImageUpload();
+    
+            $success = $this->wikiDAO->createWiki($title, $content, $userId, $categoryId, $tagIds, $imagePath);
+    
+            if ($success) {
+                header('Location: index.php?action=author_wiki_table');
+                exit();
             } else {
-                // Handle the case where user is not authenticated
-                echo "User not authenticated.";
+                echo "Failed to create the wiki.";
             }
         }
     }
-
     public function edit($wikiId)
     {
-        // Get the wiki by ID
         $wiki = $this->wikiDAO->getWikiById($wikiId);
 
         if (!$wiki) {
-            // Handle the case where the wiki is not found
             echo "Wiki not found.";
             return;
         }
 
-        // Get all categories and tags
         $categories = $this->categoryDAO->getAllCategories();
         $tags = $this->tagDAO->getAllTags();
 
-        // Include the view for editing an existing wiki
         include 'app/views/wiki/crud/edit.php';
     }
 
     public function update($wikiId)
     {
-        // Handle the submission of the edit form
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['title'];
             $content = $_POST['content'];
             $categoryId = $_POST['category_id'];
             $tagIds = isset($_POST['tags']) ? $_POST['tags'] : [];
-
-            // Validate and sanitize input if needed
-
-            // Update the wiki
-            $success = $this->wikiDAO->updateWiki($wikiId, $title, $content, $categoryId, $tagIds);
-
+    
+            $imagePath = $this->handleImageUpload();
+    
+            $success = $this->wikiDAO->updateWiki($wikiId, $title, $content, $categoryId, $tagIds, $imagePath);
+    
             if ($success) {
-                // Redirect to the index page or show a success message
                 header('Location: index.php?action=author_wiki_table');
                 exit();
             } else {
-                // Handle the case where the update failed
                 echo "Failed to update the wiki.";
             }
         }
@@ -152,7 +136,7 @@ class WikiController
     }
     public function delete($wikiId)
     {
-        $wiki = $this->wikiDAO->getWikiById($wikiId);
+        $wiki = $this->wykiDAO->getWikiById($wikiId);
 
         if ($wiki) {
             include_once 'app/views/wiki/crud/delete.php';
@@ -179,7 +163,21 @@ class WikiController
             }
         }
     }
-
+    private function handleImageUpload()
+    {
+        $imagePath = null;
+    
+        if (isset($_FILES['newImage']) && $_FILES['newImage']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'public/assets/img/';
+            $uploadFile = $uploadDir . basename($_FILES['newImage']['name']);
+    
+            if (move_uploaded_file($_FILES['newImage']['tmp_name'], $uploadFile)) {
+                $imagePath = $_FILES['newImage']['name'];
+            }
+        }
+    
+        return $imagePath;
+    }
 }
 
 ?>

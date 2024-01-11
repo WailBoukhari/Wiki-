@@ -21,6 +21,8 @@ class HomePageController
         $latestCategories = $this->categoryDAO->getLatestCategories();
         // Get latest tags
         $latestTags = $this->tagDAO->getLatestTags();
+
+        
         include "app/views/HomePage.php";
     }
 
@@ -28,16 +30,21 @@ class HomePageController
     {
         // die('Reached liveSearch'); // Add this line
         $query = isset($_GET['query']) ? $_GET['query'] : '';
-        if (!empty($query)) {
-            $wikiDAO = new WikiDAO();
+        $wikiDAO = new WikiDAO();
+        if ($query != 0) {
+            
             $results = $wikiDAO->searchWikisByQuery($query);
+            }else{
+            $results = $wikiDAO->getAllWikis();
 
+        
+            }
             ob_start();
             include 'app/views/liveSearchResults.php'; // This is the page to display live search results
             $content = ob_get_clean();
 
             echo $content;
-        }
+        
     }
 
 }

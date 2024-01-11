@@ -6,14 +6,18 @@ ob_start();
 <div class="container py-5">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+
             <!-- Image Section -->
-            <div class="mt-4 text-center">
+            <div class="text-center">
                 <img src="<?php echo $wiki->getImg(); ?>" alt="Description of the image" class="img-fluid rounded">
             </div>
+
+            <!-- Title Section -->
             <h2 class="mt-4 mb-4 text-center">
                 <?php echo $wiki->getTitle(); ?>
             </h2>
 
+            <!-- Content Section -->
             <p class="text-justify">
                 <?php echo $wiki->getContent(); ?>
             </p>

@@ -20,7 +20,8 @@ ob_start();
         </div>
     </div>
 </div>
-<div class=" p-5">
+
+<div class="p-5">
     <div class="row">
         <div class="col-lg-9">
             <div class="container py-5">
@@ -29,13 +30,14 @@ ob_start();
                     <?php if (!empty($wikis)): ?>
                     <?php foreach ($wikis as $wiki): ?>
                     <div class="col-md-4 mb-3">
-                        <div class="card h-25">
+                        <div class="card d-flex flex-column h-100">
                             <?php if ($wiki->getImg()): ?>
                             <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
-                                <img src="<?php echo $wiki->getImg(); ?>" class="card-img-top" alt="Wiki Image">
+                                <img src="<?php echo $wiki->getImg(); ?>" class="card-img-top" alt="Wiki Image"
+                                    style="height: 200px;">
                             </a>
                             <?php endif; ?>
-                            <div class="card-body">
+                            <div class="card-body flex-grow-1">
                                 <h3 class="mb-2">
                                     <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
                                         <?php echo $wiki->getTitle(); ?>
@@ -43,11 +45,10 @@ ob_start();
                                 </h3>
                                 <p class="mb-0">
                                     <?php
-                                    $content = $wiki->getContent();
-                                    echo substr($content, 0, 50);
-                                    ?>
+                                            $content = $wiki->getContent();
+                                            echo substr($content, 0, 50);
+                                            ?>
                                 </p>
-
                                 <div class="mt-3">
                                     <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>"
                                         class="btn btn-primary">Read More</a>
@@ -66,9 +67,9 @@ ob_start();
         </div>
 
         <div class="col-lg-3">
-            <div class="container py-5">
+            <div class="container">
                 <h2>Latest Wikis</h2>
-                <div class="card">
+                <div class="card h-100">
                     <?php foreach ($latestWikis as $wiki): ?>
                     <div class="card">
                         <div class="card-body">
@@ -79,12 +80,12 @@ ob_start();
                             </h5>
                             <p class="card-text">
                                 <?php
-                        $content = $wiki->getContent();
-                        echo substr($content, 0, 50);
-                        if (strlen($content) > 100) {
-                            echo '...';
-                        }
-                        ?>
+                                    $content = $wiki->getContent();
+                                    echo substr($content, 0, 50);
+                                    if (strlen($content) > 100) {
+                                        echo '...';
+                                    }
+                                    ?>
                             </p>
                         </div>
                     </div>
@@ -92,34 +93,15 @@ ob_start();
                 </div>
             </div>
 
-
             <div class="container py-5">
                 <h2>Latest Categories</h2>
-                <div class="card">
+                <div class="card h-100">
                     <?php foreach ($latestCategories as $category): ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="index.php?action=category&id=<?php echo $category->getId(); ?>">
                                     <?php echo $category->getName(); ?>
-                                </a>
-                            </h5>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <div class="container py-5">
-                <h2>Latest Tags</h2>
-                <div class="card">
-                    <?php foreach ($latestTags as $tag): ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="index.php?action=tag&id=<?php echo $tag->getId(); ?>">
-                                    <span>
-                                        <?php echo $tag->getName(); ?>
-                                    </span>
                                 </a>
                             </h5>
                         </div>

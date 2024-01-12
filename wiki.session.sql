@@ -65,6 +65,12 @@ VALUES (
         'author@test.com',
         '$2y$10$fTnr5sXGxpUbsvpkwelBNOdsCiuauVBOwh9yAdpGHfB7L21vUHota',
         'Author'
+    ),
+    (
+        'author1',
+        'author1@test.com',
+        '$2y$10$fTnr5sXGxpUbsvpkwelBNOdsCiuauVBOwh9yAdpGHfB7L21vUHota',
+        'Author'
     );
 -- Insert sample data into categories table
 INSERT INTO categories (name)

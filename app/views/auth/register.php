@@ -9,13 +9,13 @@ ob_start();
                 <?php echo $title; ?>
             </h1>
 
-            <?php if (isset($errorMessage)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <?php echo $errorMessage; ?>
-                </div>
+            <?php if (isset($errorMessage)) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $errorMessage; ?>
+            </div>
             <?php endif; ?>
 
-            <form method="post" action="index.php?action=register_store">
+            <form method="post" action="index.php?action=register_store" novalidate>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
                     <input type="text" class="form-control" id="username" name="username" required>

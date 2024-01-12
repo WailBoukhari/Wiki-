@@ -10,12 +10,12 @@ ob_start();
             </h1>
 
             <?php if (isset($errorMessage)): ?>
-                <div class="alert alert-danger" role="alert">
-                    <?php echo $errorMessage; ?>
-                </div>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $errorMessage; ?>
+            </div>
             <?php endif; ?>
 
-            <form method="post" action="index.php?action=login_execute">
+            <form method="post" action="index.php?action=login_execute" novalidate>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>

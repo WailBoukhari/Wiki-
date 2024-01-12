@@ -28,8 +28,9 @@ class WikiController
         include 'app/views/wiki/crud/admin_index.php';
     }
     public function authorIndex()
-    
+
     {
+        $userID = $_SESSION["user_id"];
         $wikiDAO = new WikiDAO();
         $wikis = $wikiDAO->getAllWikisForCrudByUserId($userID);
 
@@ -51,15 +52,15 @@ class WikiController
             $content = $_POST['content'];
             $categoryId = $_POST['category_id'];
             $tagIds = isset($_POST['tags']) ? $_POST['tags'] : [];
-    
+
             // Validate and sanitize input if needed
-    
+
             $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-    
+
             $imagePath = $this->handleImageUpload();
-    
+
             $success = $this->wikiDAO->createWiki($title, $content, $userId, $categoryId, $tagIds, $imagePath);
-    
+
             if ($success) {
                 header('Location: index.php?action=author_wiki_table');
                 exit();
@@ -90,11 +91,11 @@ class WikiController
             $content = $_POST['content'];
             $categoryId = $_POST['category_id'];
             $tagIds = isset($_POST['tags']) ? $_POST['tags'] : [];
-    
+
             $imagePath = $this->handleImageUpload();
-    
+
             $success = $this->wikiDAO->updateWiki($wikiId, $title, $content, $categoryId, $tagIds, $imagePath);
-    
+
             if ($success) {
                 header('Location: index.php?action=author_wiki_table');
                 exit();
@@ -117,7 +118,6 @@ class WikiController
             // Handle the case where disabling failed
             echo "Failed to disable the wiki.";
         }
-
     }
     public function enable($wikiId)
     {
@@ -132,11 +132,10 @@ class WikiController
             // Handle the case where disabling failed
             echo "Failed to disable the wiki.";
         }
-
     }
     public function delete($wikiId)
     {
-        $wiki = $this->wykiDAO->getWikiById($wikiId);
+        $wiki = $this->wikiDAO->getWikiById($wikiId);
 
         if ($wiki) {
             include_once 'app/views/wiki/crud/delete.php';
@@ -166,18 +165,16 @@ class WikiController
     private function handleImageUpload()
     {
         $imagePath = null;
-    
+
         if (isset($_FILES['newImage']) && $_FILES['newImage']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = 'public/assets/img/';
             $uploadFile = $uploadDir . basename($_FILES['newImage']['name']);
-    
+
             if (move_uploaded_file($_FILES['newImage']['tmp_name'], $uploadFile)) {
                 $imagePath = $_FILES['newImage']['name'];
             }
         }
-    
+
         return $imagePath;
     }
 }
-
-?>

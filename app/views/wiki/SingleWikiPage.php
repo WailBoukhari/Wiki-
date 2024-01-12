@@ -25,17 +25,17 @@ ob_start();
             <!-- Tags Section -->
             <div class="mt-4">
                 <?php $tags = $wiki->getTags(); ?>
-                <?php if (!empty($tags)): ?>
-                <h4>Tags:</h4>
-                <ul class="list-inline">
-                    <?php foreach ($tags as $tag): ?>
-                    <li class="list-inline-item">
-                        <span class="badge badge-primary">
-                            <?php echo $tag->getName(); ?>
-                        </span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
+                <?php if (!empty($tags)) : ?>
+                    <h4>Tags:</h4>
+                    <ul class="list-inline">
+                        <?php foreach ($tags as $tag) : ?>
+                            <li class="list-inline-item">
+                                <span class="badge badge-primary">
+                                    <?php echo $tag->getName(); ?>
+                                </span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
             </div>
         </div>

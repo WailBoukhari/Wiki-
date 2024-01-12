@@ -106,11 +106,12 @@ class WikiDAO extends DatabaseDAO
         return $wikis;
     }
     public function getAllWikisForCrudByUserId($userID)
-    {   var_dump($userID);
+    {
+
         $query = "SELECT w.*, u.username FROM wikis w
         JOIN users u ON w.user_id = u.user_id WHERE w.user_id = :user_id";
         $params = [':user_id' => $userID];
-        $results = $this->fetchAll($query,$params);
+        $results = $this->fetchAll($query, $params);
         $wikis = [];
         foreach ($results as $result) {
             $wiki = new Wiki(
@@ -231,17 +232,17 @@ class WikiDAO extends DatabaseDAO
             ':categoryId' => $categoryId,
             ':imagePath' => $imagePath, // Add image path to the update query
         ];
-    
+
         $success = $this->execute($query, $params);
-    
+
         if ($success) {
             // Delete existing tags for the wiki
             $this->deleteWikiTags($wikiId);
-    
+
             // Insert new tags for the wiki into wiki_tags table
             $this->insertWikiTags($wikiId, $tagIds);
         }
-    
+
         return $success;
     }
 
@@ -301,7 +302,6 @@ class WikiDAO extends DatabaseDAO
         $this->conn->commit();
 
         return true;
-
     }
     public function getWikiCount()
     {
@@ -320,18 +320,18 @@ class WikiDAO extends DatabaseDAO
     }
     public function searchWikisByQuery($query)
     {
-        $query1 = "%$query%";
+        $input = "%$query%";
 
         $query = "SELECT DISTINCT w.* FROM wikis w
                    JOIN categories c ON w.category_id = c.category_id
                    JOIN wiki_tags wt ON w.wiki_id = wt.wiki_id
                 JOIN tags t ON wt.tag_id = t.tag_id
-                  WHERE w.title LIKE :query OR
+                  WHERE (w.title LIKE :query OR
                          c.name LIKE :query OR
-                         t.name LIKE :query
+                         t.name LIKE :query)
                   AND w.is_archived = 0";
 
-        $params = [':query' => $query1];
+        $params = [':query' => $input];
         $results = $this->fetchAll($query, $params);
 
         $wikis = [];

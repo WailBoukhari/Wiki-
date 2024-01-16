@@ -50,13 +50,6 @@ ob_start();
                 $('#emailError').text('Enter a valid email address');
                 event.preventDefault();
             }
-
-            // Validate password
-            var password = $('#password').val();
-            if (!/^.{8,}$/.test(password)) {
-                $('#passwordError').text('Password must be at least 8 characters long');
-                event.preventDefault();
-            }
         });
     });
 </script>

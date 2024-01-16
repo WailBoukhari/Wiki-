@@ -112,5 +112,4 @@ class CategoryDAO extends DatabaseDAO
 
         return $result ? (object) ['count' => $result['count']] : (object) ['count' => 0];
     }
-
 }

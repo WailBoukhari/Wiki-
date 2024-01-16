@@ -123,140 +123,140 @@ VALUES (
         'A beginner-friendly guide to programming concepts.',
         2,
         1,
-        'wiki_img.jpg'
+        '1.jpg'
     ),
     (
         'The Wonders of Nature',
         'Explore the beauty and mysteries of nature.',
         2,
         2,
-        'wiki_img.jpg'
+        '2.jpg'
     ),
     (
         'Masterpieces in Art',
         'Discover timeless masterpieces from various artists.',
         2,
         3,
-        'wiki_img.jpg'
+        '3.jpg'
     ),
     (
         'Artificial Intelligence: A Future Perspective',
         'Artificial Intelligence (AI) is a field of computer science that aims to create machines capable of intelligent behavior. From machine learning to natural language processing, explore the fascinating world of AI.',
         2,
         1,
-        'wiki_img.jpg'
+        '4.jpg'
     ),
     (
         'Journey Through the Cosmos',
         'Embark on a mesmerizing journey through the vast cosmos. Learn about galaxies, stars, and the mysteries of space exploration.',
         2,
         2,
-        'wiki_img.jpg'
+        '5.jpg'
     ),
     (
         'Exploring Ancient Civilizations',
         'Uncover the secrets of ancient civilizations that shaped the course of history. Discover architectural marvels, cultural achievements, and historical milestones.',
         2,
         3,
-        'wiki_img.jpg'
+        '6.jpg'
     ),
     (
         'Musical Evolution: A Symphony Through Time',
         'Trace the evolution of music through the ages. From classical compositions to the birth of rock and roll, explore the rich tapestry of musical history.',
         2,
         4,
-        'wiki_img.jpg'
+        '7.jpg'
     ),
     (
         'The Rise of Machines: A Deep Dive into Robotics',
         'Dive deep into the world of robotics and automation. Explore the advancements in robotic technology, from industrial applications to cutting-edge developments in humanoid robots.',
         2,
         1,
-        'wiki_img.jpg'
+        '8.jpg'
     ),
     (
         'Mysteries of Ancient Egypt',
         'Embark on a journey to Ancient Egypt and unravel its mysteries. Discover the secrets of the pyramids, the Sphinx, and the fascinating civilization that thrived along the Nile.',
         2,
         3,
-        'wiki_img.jpg'
+        '9.jpg'
     ),
     (
         'Beyond the Horizon: Exploring Uncharted Territories',
         'Venture into uncharted territories and explore the beauty of untouched landscapes. From dense rainforests to vast deserts, discover the diverse ecosystems that exist beyond the horizon.',
         2,
         2,
-        'wiki_img.jpg'
+        '10.jpg'
     ),
     (
         'The Sound of Science: A Symphony of Discoveries',
         'Explore the intersection of science and music. Delve into the scientific principles behind musical compositions and the role of music in scientific discovery.',
         2,
         4,
-        'wiki_img.jpg'
+        '11.jpg'
     ),
     (
         'Programming Paradigms: A Comprehensive Guide',
         'Dive into the world of programming paradigms. Explore different approaches to solving problems and understand the principles behind functional, imperative, and object-oriented programming.',
         2,
         1,
-        'wiki_img.jpg'
+        '12.png'
     ),
     (
         'Biodiversity Hotspots: Ecological Marvels',
         'Discover biodiversity hotspots around the world. Explore ecosystems teeming with life and learn about the importance of preserving these ecological marvels.',
         2,
         2,
-        'wiki_img.jpg'
+        '13.jpg'
     ),
     (
         'The Art of Surrealism: Dreams on Canvas',
         'Immerse yourself in the dreamlike world of Surrealism. Explore artworks that challenge reality and take you on a journey through the subconscious mind.',
         2,
         3,
-        'wiki_img.jpg'
+        '14.jpg'
     ),
     (
         'The Quantum Frontier: Understanding Quantum Physics',
         'Embark on a journey into the quantum frontier. Explore the fundamental principles of quantum physics and its implications for our understanding of the universe.',
         2,
         1,
-        'wiki_img.jpg'
+        '15.jpg'
     ),
     (
         'Culinary Adventures: A Global Gastronomic Tour',
         'Embark on a culinary journey around the world. Explore diverse cuisines, traditional dishes, and the cultural significance of food in different societies.',
         2,
         4,
-        'wiki_img.jpg'
+        '16.jpg'
     ),
     (
         'Epic Sports Moments: A Journey Through Time',
         'Relive epic sports moments that have defined the history of various sports. From iconic victories to historic rivalries, explore the stories behind the most memorable moments in sports.',
         2,
         3,
-        'wiki_img.jpg'
+        '17.jpg'
     ),
     (
         'Fashion Through the Decades: A Stylish Evolution',
         'Take a trip through the fashion evolution of the decades. Explore iconic styles, fashion movements, and the cultural influences that have shaped the world of fashion.',
         2,
         4,
-        'wiki_img.jpg'
+        '18.jpg'
     ),
     (
         'Literary Classics: Timeless Tales and Authors',
         'Delve into literary classics that have stood the test of time. Explore timeless tales, renowned authors, and the enduring impact of classic literature on culture and society.',
         2,
         3,
-        'wiki_img.jpg'
+        '19.jpg'
     ),
     (
         'Wonders of the Deep: Exploring Ocean Mysteries',
         'Dive into the mysteries of the deep sea. Explore marine life, underwater ecosystems, and the wonders hidden beneath the ocean surface.',
         2,
         2,
-        'wiki_img.jpg'
+        '20.jpg'
     );
 -- Insert sample data into wiki_tags table
 INSERT INTO wiki_tags (wiki_id, tag_id)

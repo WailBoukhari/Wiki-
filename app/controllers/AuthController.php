@@ -36,20 +36,16 @@ class AuthController
                             break;
                         case 'Author':
                             header('Location: index.php?action=author');
-
                             break;
                         default:
                             header('Location: index.php?action=home');
                             break;
-
                     }
                 }
-
             } else {
                 // Login failed, display error message
                 $errorMessage = $result['message'];
                 include_once 'app/views/auth/login.php';
-
             }
         }
     }
@@ -90,5 +86,3 @@ class AuthController
         exit();
     }
 }
-
-?>

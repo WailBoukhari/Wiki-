@@ -27,11 +27,11 @@ ob_start();
             <div class="container py-5">
                 <h2 class="mb-4">All Wikis</h2>
                 <div class="row" id="live-search-results">
-                    <?php if (!empty($wikis)): ?>
-                    <?php foreach ($wikis as $wiki): ?>
+                    <?php if (!empty($wikis)) : ?>
+                    <?php foreach ($wikis as $wiki) : ?>
                     <div class="col-md-4 mb-3">
                         <div class="card d-flex flex-column h-100">
-                            <?php if ($wiki->getImg()): ?>
+                            <?php if ($wiki->getImg()) : ?>
                             <a href="index.php?action=wiki&id=<?php echo $wiki->getId(); ?>">
                                 <img src="<?php echo $wiki->getImg(); ?>" class="card-img-top" alt="Wiki Image"
                                     style="height: 200px;">
@@ -57,7 +57,7 @@ ob_start();
                         </div>
                     </div>
                     <?php endforeach; ?>
-                    <?php else: ?>
+                    <?php else : ?>
                     <div class="alert alert-info" role="alert">
                         No wikis found.
                     </div>
@@ -70,7 +70,7 @@ ob_start();
             <div class="container">
                 <h2>Latest Wikis</h2>
                 <div class="card h-100">
-                    <?php foreach ($latestWikis as $wiki): ?>
+                    <?php foreach ($latestWikis as $wiki) : ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -96,7 +96,7 @@ ob_start();
             <div class="container py-5">
                 <h2>Latest Categories</h2>
                 <div class="card h-100">
-                    <?php foreach ($latestCategories as $category): ?>
+                    <?php foreach ($latestCategories as $category) : ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -115,7 +115,7 @@ ob_start();
 
 <!-- Footer -->
 <footer class="footer py-5">
-    <p class="text-center text-black">&copy; 2024 WikiInfo. All rights reserved.</p>
+    <p class="text-center text-black">&copy; 2024 Wiki. All rights reserved.</p>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

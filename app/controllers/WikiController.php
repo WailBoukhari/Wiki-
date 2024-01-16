@@ -14,6 +14,7 @@ class WikiController
     }
     public function showWikiPage($wikiId)
     {
+
         $wikiDAO = new WikiDAO();
         $wiki = $wikiDAO->getWikiByIdWithTags($wikiId);
 
@@ -52,8 +53,6 @@ class WikiController
             $content = $_POST['content'];
             $categoryId = $_POST['category_id'];
             $tagIds = isset($_POST['tags']) ? $_POST['tags'] : [];
-
-            // Validate and sanitize input if needed
 
             $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
@@ -164,17 +163,21 @@ class WikiController
     }
     private function handleImageUpload()
     {
-        $imagePath = null;
+        try {
+            $imagePath = null;
 
-        if (isset($_FILES['newImage']) && $_FILES['newImage']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'public/assets/img/';
-            $uploadFile = $uploadDir . basename($_FILES['newImage']['name']);
+            if (isset($_FILES['newImage']) && $_FILES['newImage']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = 'public/assets/img/';
+                $uploadFile = $uploadDir . basename($_FILES['newImage']['name']);
 
-            if (move_uploaded_file($_FILES['newImage']['tmp_name'], $uploadFile)) {
-                $imagePath = $_FILES['newImage']['name'];
+                if (move_uploaded_file($_FILES['newImage']['tmp_name'], $uploadFile)) {
+                    $imagePath = $_FILES['newImage']['name'];
+                }
             }
-        }
 
-        return $imagePath;
+            return $imagePath;
+        } catch (Exception $e) {
+            echo "An error occurred during image upload: " . $e->getMessage();
+        }
     }
 }

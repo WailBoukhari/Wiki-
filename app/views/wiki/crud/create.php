@@ -13,22 +13,22 @@ ob_start();
 
         <div class="mb-3">
             <label for="content" class="form-label">Content:</label>
-            <textarea class="form-control" name="content" required></textarea>
+            <textarea class="form-control" name="content"></textarea>
         </div>
 
         <!-- Image upload -->
         <div class="mb-3">
-            <label for="newImage" class="form-label">Image:</label>
+            <label for="newImage" class="form-label">Thumbnail:</label>
             <input type="file" class="form-control" name="newImage">
         </div>
 
         <div class="mb-3">
             <label for="category_id" class="form-label">Category:</label>
             <select class="form-control" name="category_id">
-                <?php foreach ($categories as $category): ?>
-                <option value="<?php echo $category->getId(); ?>">
-                    <?php echo $category->getName(); ?>
-                </option>
+                <?php foreach ($categories as $category) : ?>
+                    <option value="<?php echo $category->getId(); ?>">
+                        <?php echo $category->getName(); ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -36,10 +36,10 @@ ob_start();
         <div class="mb-3">
             <label for="tags" class="form-label">Tags:</label>
             <select class="form-control" name="tags[]" multiple>
-                <?php foreach ($tags as $tag): ?>
-                <option value="<?php echo $tag->getId(); ?>">
-                    <?php echo $tag->getName(); ?>
-                </option>
+                <?php foreach ($tags as $tag) : ?>
+                    <option value="<?php echo $tag->getId(); ?>">
+                        <?php echo $tag->getName(); ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
         </div>

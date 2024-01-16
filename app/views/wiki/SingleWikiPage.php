@@ -38,6 +38,19 @@ ob_start();
                     </ul>
                 <?php endif; ?>
             </div>
+            <!-- Tags Section -->
+            <div class="mt-4">
+                <p class="text-justify">
+                <h4>Category:</h4>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <span class="badge badge-primary">
+                            <?php echo $wiki->getCategoryName(); ?>
+                        </span>
+                    </li>
+                </ul>
+                </p>
+            </div>
         </div>
     </div>
 </div>
